@@ -17,7 +17,11 @@
     function App() {
       const [counter, setCounter] = React.useState(0);
       const onClick = () => {
-        setCounter(counter + 1);
+        // 둘다 현재의 값을 가지고 새로운 값을 계산함
+        // setCounter(counter + 1);
+        // 비동기적으로 일괄 갱신되기때문에 다른곳에서 업데이트가 되면 값이 달라지는 이슈
+        setCounter((current) => current + 1);
+        //현재 state를 기반으로 다음 값을 변환해주기 때문에 안전함
       };
       console.log("rendered");
       console.log(counter);
