@@ -13,24 +13,47 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     function App() {
-      const [minutes, setMinutes] = React.useState(0);
+      const [amount, setAmount] = React.useState("");
+      const [inverted, setInverted] = React.useState(false); //첫번째 array값은 flipped(초기값)
       const onChange = (event) => {
-        setMinutes(event.target.value);
+        setAmount(event.target.value);
+      };
+      const reset = () => setAmount("");
+      const onInvert = () => {
+        reset();
+        setInverted((current) => !current);
       };
       return (
         <div>
           <h3 className="hi">Super Converter</h3>
-          <label htmlFor="minutes">Minutes</label>
-          <input
-            value={minutes}
-            id="minutes"
-            placeholder="Minutes"
-            type="number"
-            onChange={onChange}
-          />
-          <h4>You want to convert {minutes}</h4>
-          <label htmlFor="hours">Hours</label>
-          <input id="hours" placeholder="Hours" type="number" />
+          <div>
+            <label htmlFor="minutes">Minutes </label>
+            <input
+              value={inverted ? amount * 60 : amount}
+              id="minutes"
+              placeholder="Minutes"
+              type="number"
+              onChange={onChange}
+              // disabled={inverted == true}
+              disabled={inverted} //inverted true가 되면 활성화
+            />
+          </div>
+          <div>
+            <label htmlFor="hours">Hours </label>
+            <input
+              value={inverted ? amount : Math.round(amount / 60)}
+              id="hours"
+              placeholder="Hours"
+              type="number"
+              // disabled={inverted == false} //inverted false와 같으면 보여줘
+              disabled={!inverted} //true
+              onChange={onChange}
+            />
+          </div>
+          <button onClick={reset}>Reaset</button>
+          <button onClick={onInvert}>
+            {inverted ? "Turn back" : "Invert"}
+          </button>
         </div>
       );
     }
