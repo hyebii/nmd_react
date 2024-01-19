@@ -8,118 +8,41 @@
   <body>
     <div id="root"></div>
   </body>
-  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
-  <script src="//unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <!-- propType -->
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
-    function MinutesToHours() {
-      const [amount, setAmount] = React.useState("");
-      const [inverted, setInverted] = React.useState(false);
-      const onChange = (event) => {
-        setAmount(event.target.value);
-      };
-      const reset = () => setAmount("");
-      const onInvert = () => {
-        reset();
-        setInverted((current) => !current);
-      };
+    function Btn({ text, fontSize = 12 }) {
+      // console.log(text, "was rendered");
       return (
-        <div>
-          <div>
-            <label htmlFor="minutes">Minutes </label>
-            <input
-              value={inverted ? amount * 60 : amount}
-              id="minutes"
-              placeholder="Minutes"
-              type="number"
-              onChange={onChange}
-              // disabled={inverted == true}
-              disabled={inverted}
-            />
-          </div>
-          <div>
-            <label htmlFor="hours">Hours </label>
-            <input
-              value={inverted ? amount : Math.round(amount / 60)}
-              id="hours"
-              placeholder="Hours"
-              type="number"
-              // disabled={inverted == false}
-              disabled={!inverted} //true
-              onChange={onChange}
-            />
-          </div>
-          <button onClick={reset}>Reaset</button>
-          <button onClick={onInvert}>
-            {inverted ? "Turn back" : "Invert"}
-          </button>
-        </div>
+        <button
+          style={{
+            backgroundColor: "#00a2ff",
+            color: "white",
+            padding: "10px 20px",
+            border: "0",
+            borderRadius: "10px",
+            cursor: "pointer",
+            fontSize,
+          }}
+        >
+          {text}
+        </button>
       );
     }
 
-    // Miles -> km, km -> Miles는 계산식
-    // Miles -> km : amount * 1.609
-    // km -> Miles : amount / 1.609
-    function KmToMiles() {
-      const [amount2, setAmount2] = React.useState(0);
-      const [flipped, setFlipped] = React.useState(false);
-      const onChange = (event) => {
-        setAmount2(event.target.value);
-      };
-      const reset = () => setAmount2(0);
-      const invert = () => {
-        reset();
-        setFlipped((current) => !current);
-      };
-      console.log(flipped);
-      return (
-        <div>
-          <h3>KM 2 M</h3>
-          <div>
-            <label htmlFor="miles">Miles </label>
-            <input
-              value={flipped ? amount2 * 1.609 : amount2}
-              id="miles"
-              type="number"
-              onChange={onChange}
-              disabled={flipped} //false
-            />
-          </div>
-          <div>
-            <label htmlFor="miles">Km </label>
-            <input
-              value={flipped ? amount2 : Math.round(amount2 / 1.609)}
-              id="km"
-              type="number"
-              onChange={onChange}
-              disabled={!flipped}
-            />
-          </div>
-          <button onClick={reset}>reset</button>
-          <button onClick={invert}>flip</button>
-        </div>
-        // disabled가 true, false 기준이 아니라 flipped가 true,false인지 봐야함 !!!!!
-        // disabled는 그냥 true일때 실행되는거고 flipped를 보기 헷갈리면 console.log(flipped)해서 보기
-      );
-    }
+    Btn.propTypes = {
+      text: PropTypes.string.isRequired,
+      fontSize: PropTypes.number,
+    };
 
     function App() {
-      const [index, setIndex] = React.useState("1");
-      const onSelect = (event) => {
-        setIndex(event.target.value);
-      };
-      // console.log("render w/", index);
       return (
         <div>
-          <h1>Super Converter</h1>
-          <select value={index} onChange={onSelect}>
-            <option value="xx">Select Option</option>
-            <option value="0">Minutes & Hours</option>
-            <option value="1">Km & Miles</option>
-          </select>
-          {index === "xx" ? " Select your units" : null}
-          {index === "0" ? <MinutesToHours /> : null}
-          {index === "1" ? <KmToMiles /> : null}
+          <Btn text="Save Changes" fontSize={18} />
+          <Btn text="revert" />
         </div>
       );
     }
