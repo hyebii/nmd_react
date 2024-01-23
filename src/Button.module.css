@@ -2,16 +2,3 @@
   color: white;
   background: tomato;
 }
-
-/* style 주는법
-1) style.css 작성
-index.js에서 import해야 적용됨 
--> 모든 버튼을 토마토 색으로 만들어버림(모든 부분에 import돼서)
-
-
-2) <button></button>에  직접 style={{ }}로 주기
--> 직접적으로 css가 들어감
-
-3) Button.module.css 만들어서 작성
-Button.js에 import 해주기
-*/
