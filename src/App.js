@@ -10,8 +10,9 @@ function App() {
       return; //return되도록 해서 함수가 작동하지 않도록 함 (return은 파괴(끝)할때인거같음..)
     }
     
-    setToDo("");
     //toDos.push 자바였다면 이렇게 씀 .push는 배열의 끝에 요소를 추가할때 사용
+    setToDo(""); //직접적으로 값수정
+    setToDos(currentArray => [toDo, ]); //함수를 넣는 방법 //function(currentArray){}와 같은것
   };
   console.log(toDos);
   return (
