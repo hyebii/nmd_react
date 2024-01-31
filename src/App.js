@@ -11,13 +11,18 @@ function App() {
     }
     
     //toDos.push 자바였다면 이렇게 씀 .push는 배열의 끝에 요소를 추가할때 사용
-    setToDo(""); //직접적으로 값수정
-    setToDos(currentArray => [toDo, ]); //함수를 넣는 방법 //function(currentArray){}와 같은것
+    //하지만 state는 직접적으로 값 수정 불가능 -> 함수(set~)를 가져와서수정하게 만들어야함
+    //여기서는 배열수정할거니까 함수가져와서
+    //함수를 넣는 방법 👇 function(currentArray){}와 같음
+    setToDos(currentArray => [toDo, ...currentArray]);  //...배열이름 -> toDo를 currentrray안에 넣고 모든 currentA
+    // setToDos(([]) => [toDo, ...[]] ); //비어있는 array의 element가 더해짐
+    setToDo("");
   };
   console.log(toDos);
   return (
     //submit이벤트
     <div>
+      <h1>My To Dos ({toDos.length})</h1>
       <form onSubmit={onSubmit}>
         <input
           value={toDo}
